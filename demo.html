@@ -5,73 +5,76 @@
   <meta charset="utf-8">
   <title></title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="./base.css">
   <style media="screen">
-    .stackpage {
-      width: 100%;
-      background: #b9b9b9;
-      height: 100%;
-      display: none;
-    }
-    .stackpage.show {
-      display: block;
-      opacity: 1;
-      animation-duration: 0.5s;
-      animation-name: stackpage-fade-in;
-      -moz-animation-duration: 0.5s;
-      -moz-animation-name: stackpage-fade-in;
-      -webkit-animation-duration: 0.5s;
-      -webkit-animation-name: stackpage-fade-in;
-    }
-
-    @keyframes stackpage-fade-in {
-      0% {
-        display: none;
-        opacity: 0;
-      }
-
-      1% {
-        opacity: 0;
-      }
-
-      100% {
-        display: block;
-        opacity: 1;
-      }
+    .bottom {
+      position: fixed;
+      bottom: 10px;
+      background: white;
+      left: 20px;
     }
   </style>
 </head>
 
-<body class="w3-container">
-  <div id="main-content" class="stackpage show"  style="background:lightblue; height: 3000px">
+<body>
+  <div id="main-content" class="stackpage show" style="font-size: 30px; background:lightblue; height: 3000px">
     MAIN CONTENT
-    <button id="push-button2" type="button" name="button">PUSH</button>
-    <button class="pop-button" type="button" name="button">POP</button>
+
+    a<br>b<br>c<br>d<br>e<br>f<br>g<br>h<br>i<br>j<br>k<br>l<br>m<br>n<br>o<br>p<br>q<br>r<br>s<br>t<br>u<br>v<br>w<br>x<br>y<br>z
+
+    <div class="bottom">
+      <button id="push-button2" type="button" name="button">PUSH</button>
+      <button class="pop-button" type="button" name="button">POP</button>
+    </div>
   </div>
 
   <div id="page-2" class="stackpage" style="height: 3000px">
-    <button id="push-button3" type="button" name="button">PUSH</button>
-    <button class="pop-button" type="button" name="button">POP</button> PAGE2
+    PAGE2
+    <div class="bottom">
+      <button id="push-button3" type="button" name="button">PUSH</button>
+      <button id="push-button4" type="button" name="button">REPLACE</button>
+      <button class="pop-button" type="button" name="button">POP</button>
+    </div>
   </div>
 
   <div id="page-3" class="stackpage">
-    <button class="pop-button" type="button" name="button">POP</button> PAGE3
+    PAGE3
+    <div class="bottom">
+      <button class="pop-button" type="button" name="button">POP</button>
+    </div>
   </div>
+
+  <div id="page-4" class="stackpage">
+    PAGE4
+    <div class="bottom">
+      <button id="push-button4-3" type="button" name="button">PUSH</button>
+      <button class="pop-button" type="button" name="button">POP</button>
+    </div>
+  </div>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
   <script type="module">
   import PageStack from './index.js';
 
-  const ps = new PageStack();
-  document.getElementById('push-button2').addEventListener('click', () => {
+  const ps = new PageStack('main-content');
+  $('#push-button2').on('click', () => {
     ps.push('page-2');
   });
-  document.getElementById('push-button3').addEventListener('click', () => {
+  $('#push-button3').on('click', () => {
     ps.push('page-3');
   });
-  const popButtons = document.querySelectorAll('.pop-button');
-  Array.from(popButtons).forEach(button => {
-    button.addEventListener('click', event => {
-      ps.pop();
-    });
+  $('#push-button4-3').on('click', () => {
+    ps.push('page-3');
   });
+  $('#push-button4').on('click', () => {
+    ps.push('page-4');
+  });
+  const popButtons = document.querySelectorAll('.pop-button');
+  $('.pop-button').on('click', () => {
+    ps.pop();
+  })
   </script>
 </body>
 
