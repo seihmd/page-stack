@@ -1,20 +1,21 @@
 const defaultOption = {
-  showClass: 'show'
+  showClass: 'show',
+  historyMode: true,
+  baseId: ''
 };
 
-// TODO should work without history
 class PageStack {
   /**
    * @param {string} baseId
    * @param {Object} [option={}]
    */
-  constructor(baseId, option = {}) {
+  constructor(option = {}) {
+    this.option = Object.assign(defaultOption, option);
+    const { baseId } = this.option;
     const baseEl = document.getElementById(baseId);
     if (!baseEl) {
       throw Error(`element with id: ${baseId} is not found`);
     }
-    this.option = Object.assign(defaultOption, option);
-    this.baseId = baseId;
     this.currentId = baseId;
     this.memo = {
       [baseId]: {
@@ -22,34 +23,13 @@ class PageStack {
         el: baseEl
       }
     };
-
-    window.history.pushState({ id: this.baseId }, '');
-    window.onpopstate = ({ state }) => {
-      if (state && state.id) {
-        this.push(state.id, false);
-      }
-    };
   }
 
-  pushBase() {
-    if (this.baseId === this.currentId) {
-      return;
-    }
-
-    this.push(this.baseId);
-  }
-
-  push(id, pushHistory = true) {
+  to(id) {
     this.memoId(id);
     this.hide();
-    this.show(id);
-    if (pushHistory) {
-      window.history.pushState({ id: this.currentId }, '');
-    }
-  }
 
-  pop() {
-    window.history.back();
+    this.show(id);
   }
 
   hide() {
@@ -59,8 +39,7 @@ class PageStack {
 
   show(id) {
     this.toggle(id, true);
-    // TODO 必要？
-    // window.scrollTo(0, this.memo[id].scroll);
+    window.scrollTo(0, this.memo[id].scroll);
     this.currentId = id;
   }
 

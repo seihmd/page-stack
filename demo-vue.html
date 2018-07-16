@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="./base.css">
+  <style media="screen">
+    .bottom {
+      position: fixed;
+      bottom: 10px;
+      background: white;
+      left: 20px;
+    }
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+  <body>
+    <div id="app" v-cloak>
+      <page-stack-item :ps-id="'main'" :ps-current="psCurrent">
+        main page
+        <div class="bottom">
+          <button @click="psCurrent='page2'" type="button" name="button">go page2</button>
+        </div>
+      </page-stack-item>
+      <page-stack-item :ps-id="'page2'" :ps-current="psCurrent">
+        page2
+        <div class="bottom">
+          <button @click="psCurrent='page3'" type="button" name="button">go page3</button>
+          <button @click="psCurrent='page4'" type="button" name="button">go page4</button>
+          <button @click="psCurrent='main'" type="button" name="button">go main</button>
+        </div>
+      </page-stack-item>
+      <page-stack-item :ps-id="'page4'" :ps-current="psCurrent">
+        page4
+        <div class="bottom">
+          <button @click="psCurrent='page2'" type="button" name="button">go page2</button>
+        </div>
+      </page-stack-item>
+      <page-stack-item :ps-id="'page3'" :ps-current="psCurrent">
+        page3
+        <div class="bottom">
+          <button @click="psCurrent='page2'" type="button" name="button">go page3</button>
+        </div>
+      </page-stack-item>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script type="module">
+    import PageStackMixin from './VueMixin.js';
+
+    new Vue({
+      el: '#app',
+      mixins: [PageStackMixin],
+      created() {
+        this.psCurrent = 'main'
+      }
+    });
+    </script>
+  </body>
+</html>
