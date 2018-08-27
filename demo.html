@@ -3,14 +3,14 @@
 
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>page stack UI demo</title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="stylesheet" href="./base.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
 </head>
 
 <body>
-  <div id="base">
+  <div id="page1">
     <section class="hero is-medium is-info is-bold">
       <div class="hero-body">
         <div class="container">
@@ -37,7 +37,7 @@
     </section>
 
     <section class="section container">
-      <a class="psTrigger button is-fullwidth is-warning" data-ps-to="base">back</a>
+      <a class="psTrigger button is-fullwidth is-warning" data-ps-to="page1">back</a>
     </section>
 
     <section class="section container">
@@ -81,7 +81,7 @@
   <script type="module">
   import PageStack from './index.js';
 
-  const ps = new PageStack('base');
+  const ps = new PageStack('page1');
 
   $('.psTrigger').on('click', (e) => {
     const id = $(e.target).data('ps-to');

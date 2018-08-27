@@ -10,6 +10,7 @@ function getScrollingElement() {
 
 const scrollingElement = getScrollingElement();
 const defaultOption = {
+  historyMode: true,
   showClass: 'pagestack-show',
   hideClass: 'pagestack-hide'
 };
@@ -31,9 +32,18 @@ class PageStack {
         el: baseEl
       }
     };
+
+    if (this.option.historyMode) {
+      window.history.pushState({ psid: baseId }, '');
+      window.onpopstate = ({ state }) => {
+        if (state && state.psid) {
+          this.to(state.psid, true);
+        }
+      };
+    }
   }
 
-  to(id) {
+  to(id, onPopState = false) {
     if (id === this.currentId) {
       return;
     }
@@ -41,21 +51,25 @@ class PageStack {
 
     this.hide();
     this.show(id);
+
+    if (this.option.historyMode && !onPopState) {
+      window.history.pushState({ psid: id }, '');
+    }
   }
 
   hide() {
     this.memo[this.currentId].scroll = scrollingElement.scrollTop;
     const { el } = this.memo[this.currentId];
-    el.classList.toggle(this.option.showClass, false);
-    el.classList.toggle(this.option.hideClass, true);
+    el.classList.remove(this.option.showClass);
+    el.classList.add(this.option.hideClass);
   }
 
   show(id) {
     const { el } = this.memo[id];
-    el.classList.toggle('pagestack-hide', false);
-    el.classList.toggle('pagestack-show', true);
+    el.classList.remove(this.option.hideClass);
+    el.classList.add(this.option.showClass);
     setTimeout(() => {
-      getScrollingElement().scrollTop = this.memo[id].scroll;
+      scrollingElement.scrollTop = this.memo[id].scroll;
     }, 0);
     this.currentId = id;
   }
