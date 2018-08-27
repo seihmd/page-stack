@@ -1,31 +1,28 @@
-.stackpage {
-  width: 100%;
-  background: #b9b9b9;
-  height: 100%;
-  display: none;
-} 
-
-.stackpage.show {
-  display: block;
-  opacity: 1;
-  animation-duration: 0.5s;
-  animation-name: stackpage-fade-in;
-  -moz-animation-duration: 0.5s;
-  -moz-animation-name: stackpage-fade-in;
-  -webkit-animation-duration: 0.5s;
-  -webkit-animation-name: stackpage-fade-in;
+.pagestack-hide {
+    display: none;
 }
 
-@keyframes stackpage-fade-in {
-  0% {
-    display: none;
-    opacity: 0;
-  }
-  1% {
-    opacity: 0;
-  }
-  100% {
+.pagestack-show {
     display: block;
     opacity: 1;
-  }
+    animation-duration: 0.5s;
+    animation-name: pagestack-fade-in;
+    -moz-animation-duration: 0.5s;
+    -moz-animation-name: pagestack-fade-in;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-name: pagestack-fade-in;
+}
+
+@keyframes pagestack-fade-in {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+    1% {
+        opacity: 0;
+    }
+    100% {
+        display: block;
+        opacity: 1;
+    }
 }
