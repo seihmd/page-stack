@@ -1,19 +1,18 @@
-.pagestack-hide {
+.sv-hide {
     display: none;
 }
 
-.pagestack-show {
+.sv-show {
     display: block;
-    opacity: 1;
     animation-duration: 0.5s;
-    animation-name: pagestack-fade-in;
+    animation-name: sv-fade-in;
     -moz-animation-duration: 0.5s;
-    -moz-animation-name: pagestack-fade-in;
+    -moz-animation-name: sv-fade-in;
     -webkit-animation-duration: 0.5s;
-    -webkit-animation-name: pagestack-fade-in;
+    -webkit-animation-name: sv-fade-in;
 }
 
-@keyframes pagestack-fade-in {
+@keyframes sv-fade-in {
     0% {
         display: none;
         opacity: 0;

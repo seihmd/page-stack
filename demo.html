@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>page stack UI demo</title>
+  <title>shift view UI demo</title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="stylesheet" href="./base.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
@@ -15,17 +15,17 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            page stack UI demo
+            shift view UI demo
           </h1>
         </div>
       </div>
     </section>
     <section class="section container">
-      <a class="psTrigger button is-fullwidth is-info" data-ps-to="page2">open</a>
+      <a class="svTrigger button is-fullwidth is-info" data-sv-to="page2">open</a>
     </section>
   </div>
 
-  <div id="page2" class="pagestack-hide">
+  <div id="page2" class="sv-hide">
     <section class="hero is-medium is-warning is-bold">
       <div class="hero-body">
         <div class="container">
@@ -37,7 +37,7 @@
     </section>
 
     <section class="section container">
-      <a class="psTrigger button is-fullwidth is-warning" data-ps-to="page1">back</a>
+      <a class="svTrigger button is-fullwidth is-warning" data-sv-to="page1">back</a>
     </section>
 
     <section class="section container">
@@ -46,7 +46,7 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque.</p>
 
         <section class="section container">
-          <a class="psTrigger button is-fullwidth is-warning" data-ps-to="page3">Go to next page</a>
+          <a class="svTrigger button is-fullwidth is-warning" data-sv-to="page3">Go to next page</a>
         </section>
 
         <h2>Second level</h2>
@@ -61,7 +61,7 @@
     </section>
   </div>
 
-  <div id="page3" class="pagestack-hide">
+  <div id="page3" class="sv-hide">
     <section class="hero is-medium is-primary is-bold">
       <div class="hero-body">
         <div class="container">
@@ -72,20 +72,25 @@
       </div>
     </section>
     <section class="section container">
-      <a class="psTrigger button is-fullwidth is-primary" data-ps-to="page2">back to page2</a>
+      <a class="svTrigger button is-fullwidth is-primary" data-sv-to="page2">back to page2</a>
+    </section>
+    <section class="section container">
+      <a class="svTrigger svTriggerTop button is-fullwidth is-primary" data-sv-to="page2">back to page2 top</a>
     </section>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
   <script type="module">
-  import PageStack from './index.js';
+  import ShiftView from './index.js';
 
-  const ps = new PageStack('page1');
+  const sv = new ShiftView('page1');
 
-  $('.psTrigger').on('click', (e) => {
-    const id = $(e.target).data('ps-to');
-    ps.to(id);
+  $('.svTrigger').on('click', (e) => {
+    const $trigger = $(e.target);
+    const id = $trigger.data('sv-to');
+    const showScrollTop = $trigger.is('.svTriggerTop');
+    sv.to(id, showScrollTop);
   });
   </script>
 </body>

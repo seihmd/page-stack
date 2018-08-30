@@ -11,11 +11,11 @@ function getScrollingElement() {
 const scrollingElement = getScrollingElement();
 const defaultOption = {
   historyMode: true,
-  showClass: 'pagestack-show',
-  hideClass: 'pagestack-hide'
+  showClass: 'sv-show',
+  hideClass: 'sv-hide'
 };
 
-class PageStack {
+class ShiftView {
   /**
    * @param {Object} [option={}]
    */
@@ -43,14 +43,14 @@ class PageStack {
     }
   }
 
-  to(id, onPopState = false) {
+  to(id, showScrollTop = false, onPopState = false) {
     if (id === this.currentId) {
       return;
     }
     this.memoId(id);
 
     this.hide();
-    this.show(id);
+    this.show(id, showScrollTop);
 
     if (this.option.historyMode && !onPopState) {
       window.history.pushState({ psid: id }, '');
@@ -64,13 +64,19 @@ class PageStack {
     el.classList.add(this.option.hideClass);
   }
 
-  show(id) {
+  show(id, showScrollTop) {
     const { el } = this.memo[id];
     el.classList.remove(this.option.hideClass);
     el.classList.add(this.option.showClass);
-    setTimeout(() => {
-      scrollingElement.scrollTop = this.memo[id].scroll;
-    }, 0);
+
+    if (!showScrollTop) {
+      el.style.visibility = 'hidden';
+      setTimeout(() => {
+        scrollingElement.scrollTop = this.memo[id].scroll;
+        el.style.visibility = 'visible';
+      }, 0);
+    }
+
     this.currentId = id;
   }
 
@@ -90,4 +96,4 @@ class PageStack {
   }
 }
 
-export default PageStack;
+export default ShiftView;
